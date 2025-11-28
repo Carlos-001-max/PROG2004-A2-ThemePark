@@ -1,0 +1,27 @@
+# Compiled class files
+*.class
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+
+# Build outputs
+target/
+build/
+out/
+
+# Log files
+*.log
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Program output
+ride_history.csv
