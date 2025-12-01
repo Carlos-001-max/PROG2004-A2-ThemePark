@@ -3,40 +3,50 @@ import java.io.*;
 
 /**
  * Ride class representing theme park rides
- * Implements RideInterface
  */
 public class Ride implements RideInterface {
-    private final String rideName;
-    private final Employee operator;
-    private final int maxRider;
+    private String rideName;
+    private String rideType;
+    private Employee operator;
+    private int maxRider;
     private int numOfCycles;
     private final Queue<Visitor> waitingLine;
     private final LinkedList<Visitor> rideHistory;
 
     /**
-     * Constructor for Ride class
+     * Default constructor
+     */
+    @SuppressWarnings("unused")
+    public Ride() {
+        this.rideName = "Unknown Ride";
+        this.rideType = "General";
+        this.operator = new Employee();
+        this.maxRider = 2;
+        this.numOfCycles = 0;
+        this.waitingLine = new LinkedList<>();
+        this.rideHistory = new LinkedList<>();
+    }
+
+    /**
+     * Parameterized constructor
      */
     public Ride(String rideName, String rideType, Employee operator, int maxRider) {
         if (rideName == null || rideName.trim().isEmpty()) {
             throw new ThemeParkException("Ride name cannot be null or empty");
         }
+        validateRideType(rideType);
         if (maxRider < 1) {
             throw new ThemeParkException("Max rider must be at least 1");
         }
         this.rideName = rideName;
+        this.rideType = rideType;
         this.operator = operator;
         this.maxRider = maxRider;
         this.numOfCycles = 0;
         this.waitingLine = new LinkedList<>();
         this.rideHistory = new LinkedList<>();
-
-        // Use rideType parameter to avoid "never accessed" warning
-        validateRideType(rideType);
     }
 
-    /**
-     * Validate ride type
-     */
     private void validateRideType(String rideType) {
         String[] validTypes = {"Thrill Ride", "Water Ride", "Family Ride", "Kids Ride", "General"};
         if (rideType == null || !java.util.Arrays.asList(validTypes).contains(rideType)) {
@@ -44,9 +54,52 @@ public class Ride implements RideInterface {
         }
     }
 
-    /**
-     * Add visitor to waiting queue
-     */
+    // Getters
+    public String getRideName() {
+        return rideName;
+    }
+
+    public String getRideType() {
+        return rideType;
+    }
+
+    public Employee getOperator() {
+        return operator;
+    }
+
+    public int getMaxRider() {
+        return maxRider;
+    }
+
+    public int getNumOfCycles() {
+        return numOfCycles;
+    }
+
+    // Setters
+    public void setRideName(String rideName) {
+        if (rideName == null || rideName.trim().isEmpty()) {
+            throw new ThemeParkException("Ride name cannot be null or empty");
+        }
+        this.rideName = rideName;
+    }
+
+    public void setRideType(String rideType) {
+        validateRideType(rideType);
+        this.rideType = rideType;
+    }
+
+    public void setOperator(Employee operator) {
+        this.operator = operator;
+    }
+
+    public void setMaxRider(int maxRider) {
+        if (maxRider < 1) {
+            throw new ThemeParkException("Max rider must be at least 1");
+        }
+        this.maxRider = maxRider;
+    }
+
+    // Interface methods
     @Override
     public void addVisitorToQueue(Visitor visitor) {
         if (visitor == null) {
@@ -56,9 +109,6 @@ public class Ride implements RideInterface {
         System.out.println("Added " + visitor.getName() + " to queue for " + rideName);
     }
 
-    /**
-     * Remove visitor from waiting queue
-     */
     @Override
     public void removeVisitorFromQueue() {
         Visitor removed = waitingLine.poll();
@@ -69,9 +119,6 @@ public class Ride implements RideInterface {
         }
     }
 
-    /**
-     * Print all visitors in waiting queue
-     */
     @Override
     public void printQueue() {
         System.out.println("Queue for " + rideName + ":");
@@ -87,9 +134,6 @@ public class Ride implements RideInterface {
         }
     }
 
-    /**
-     * Add visitor to ride history
-     */
     @Override
     public void addVisitorToHistory(Visitor visitor) {
         if (visitor == null) {
@@ -99,9 +143,6 @@ public class Ride implements RideInterface {
         System.out.println("Added " + visitor.getName() + " to ride history");
     }
 
-    /**
-     * Check if visitor is in ride history
-     */
     @Override
     public void checkVisitorFromHistory(Visitor visitor) {
         if (visitor == null) {
@@ -111,17 +152,11 @@ public class Ride implements RideInterface {
         System.out.println("Visitor " + visitor.getName() + " in history: " + found);
     }
 
-    /**
-     * Get number of visitors in ride history
-     */
     @Override
     public int numberOfVisitors() {
         return rideHistory.size();
     }
 
-    /**
-     * Print all visitors in ride history
-     */
     @Override
     public void printRideHistory() {
         System.out.println("Ride history for " + rideName + ":");
@@ -138,9 +173,6 @@ public class Ride implements RideInterface {
         }
     }
 
-    /**
-     * Run one ride cycle
-     */
     @Override
     public void runOneCycle() {
         if (operator == null) {

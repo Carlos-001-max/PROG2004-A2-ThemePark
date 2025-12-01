@@ -1,6 +1,5 @@
 /**
  * Interface defining ride operations
- * Implemented by Ride class
  */
 public interface RideInterface {
     void addVisitorToQueue(Visitor visitor);
