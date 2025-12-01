@@ -1,5 +1,4 @@
 import java.util.Comparator;
-
 /**
  * Comparator for sorting visitors by name and age
  */
