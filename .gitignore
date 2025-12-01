@@ -23,5 +23,6 @@ out/
 .DS_Store
 Thumbs.db
 
+
 # Program output
 ride_history.csv

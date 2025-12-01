@@ -23,8 +23,7 @@ This Java application manages theme park operations including visitor tracking, 
 2. Run main class: java -cp src AssignmentTwo
 
 ## Author
-Chengyu Gao
-24832054
+Chengyu Gao 24832054
 
 ## Academic Integrity
 I acknowledge that I have not knowingly used GenAI to complete this assessment.
